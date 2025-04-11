@@ -21,7 +21,7 @@ class Program
         }
         
         // Perform the calculation using student ID variable
-        int var23 = x * y + z; // Using lastTwoDigits (23) in variable name
+        int var23 = x * y + z; // Using lastTwoDigits (22) in variable name
         
         // Display results
         Console.WriteLine("\nBased on registration ID: " + registrationId);
