@@ -6,11 +6,11 @@ class Program
     {
         // Student registration ID: BCS-23
         string registrationId = "BCS-22";
-        int lastTwoDigits = 22; // Extracted from BCS-23
+        int lastTwoDigits = 22; // Extracted from BCS-22
         
         // Set x and y based on registration ID digits
-        int x = 2;  // First digit of last two (2 from 23)
-        int y = 3;   // Second digit of last two (3 from 23)
+        int x = 2;  // First digit of last two (2 from 22)
+        int y = 3;   // Second digit of last two (3 from 22)
         
         // Take z input from user
         Console.Write("Enter value for z: ");
