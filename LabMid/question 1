@@ -1,0 +1,33 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Student registration ID: BCS-23
+        string registrationId = "BCS-22";
+        int lastTwoDigits = 22; // Extracted from BCS-22
+        
+        // Set x and y based on registration ID digits
+        int x = 2;  // First digit of last two (2 from 22)
+        int y = 3;   // Second digit of last two (3 from 22)
+        
+        // Take z input from user
+        Console.Write("Enter value for z: ");
+        int z;
+        while (!int.TryParse(Console.ReadLine(), out z))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid integer for z:");
+        }
+        
+        // Perform the calculation using student ID variable
+        int var23 = x * y + z; // Using lastTwoDigits (22) in variable name
+        
+        // Display results
+        Console.WriteLine("\nBased on registration ID: " + registrationId);
+        Console.WriteLine($"x = {x} (from first digit of {lastTwoDigits})");
+        Console.WriteLine($"y = {y} (from second digit of {lastTwoDigits})");
+        Console.WriteLine($"z = {z} (user input)");
+        Console.WriteLine($"Result (x * y + z) = {var23}");
+    }
+}

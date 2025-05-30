@@ -1,0 +1,81 @@
+Here is the modified code that separates the output into different files for each type:
+
+```
+#include <string.h>
+#include <ctype.h>
+#include <stdio.h>
+
+void keyword(char str[10]) {
+    if (strcmp("for", str) == 0 || strcmp("while", str) == 0 || strcmp("do", str) == 0 ||
+        strcmp("int", str) == 0 || strcmp("float", str) == 0 || strcmp("char", str) == 0 ||
+        strcmp("double", str) == 0 || strcmp("static", str) == 0 || strcmp("switch", str) == 0 ||
+        strcmp("case", str) == 0)
+        printf("\n%s is a keyword", str);
+    else
+        printf("\n%s is an identifier", str);
+}
+
+int main() {
+    FILE *f1, *f2, *f3, *f4, *f5, *f6;
+    char c, str[10], st1[10];
+    int num[100], lineno = 0, tokenvalue = 0, i = 0, j = 0, k = 0;
+
+    f1 = fopen("lexicalanalyzer.cpp", "r");
+    f2 = fopen("identifiers.txt", "w"); // identifiers
+    f3 = fopen("keywords.txt", "w");     // keywords
+    f4 = fopen("numbers.txt", "w");       // numbers
+    f5 = fopen("operators.txt", "w");     // operators
+    f6 = fopen("specialchars.txt", "w");  // special characters
+
+    while ((c = getc(f1)) != EOF) {
+        if (isdigit(c)) {
+            tokenvalue = c - '0';
+            c = getc(f1);
+            while (isdigit(c)) {
+                tokenvalue *= 10 + c - '0';
+                c = getc(f1);
+            }
+            num[i++] = tokenvalue;
+            fprintf(f4, "%d\n", tokenvalue); // write number to file
+            ungetc(c, f1);
+        } else if (isalpha(c)) {
+            putc(c, f2); // write identifier to file
+            c = getc(f1);
+            while (isdigit(c) || isalpha(c) || c == '_' || c == '$') {
+                putc(c, f2);
+                c = getc(f1);
+            }
+            putc(' ', f2);
+            ungetc(c, f1);
+            // check if keyword
+            fseek(f2, -1, SEEK_CUR); // move back to last character
+            fscanf(f2, "%s", str);
+            if (strcmp("for", str) == 0 || strcmp("while", str) == 0 || strcmp("do", str) == 0 ||
+                strcmp("int", str) == 0 || strcmp("float", str) == 0 || strcmp("char", str) == 0 ||
+                strcmp("double", str) == 0 || strcmp("static", str) == 0 || strcmp("switch", str) == 0 ||
+                strcmp("case", str) == 0) {
+                fprintf(f3, "%s\n", str); // write keyword to file
+            }
+        } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '=' || c == '<' || c == '>' || c == '!') {
+            fprintf(f5, "%c\n", c); // write operator to file
+        } else if (c == ' ' || c == '\t')
+            printf(" ");
+        else if (c == '\n')
+            lineno++;
+        else {
+            fprintf(f6, "%c\n", c); // write special character to file
+        }
+    }
+
+    fclose(f1);
+    fclose(f2);
+    fclose(f3);
+    fclose(f4);
+    fclose(f5);
+    fclose(f6);
+
+    printf("\nTotal no. of lines are: %d", lineno);
+
+    return 0;
+}
+.
